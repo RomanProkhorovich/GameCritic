@@ -14,7 +14,7 @@
 <body>
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">GameCritic</a>
+        <a href="/" class="brand-logo">GameCritic</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="sass.html"></a></li>
             <li><a href="badges.html"></a></li>

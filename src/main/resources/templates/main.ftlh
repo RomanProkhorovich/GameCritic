@@ -19,6 +19,7 @@
             <li><a href="sass.html"></a></li>
             <li><a href="badges.html"></a></li>
             <li><a href="collapsible.html">Категории</a></li>
+            <li><a href="/add_new_title">+</a></li>
         </ul>
     </div>
 </nav>

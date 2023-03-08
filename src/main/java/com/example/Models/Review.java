@@ -4,37 +4,36 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
-@NoArgsConstructor()
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Game {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String title;
-    @ManyToOne()
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
-    private LocalDate releaseDate;
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+    private String about;
 
-    public Game(String title, Genre genre, LocalDate releaseDate) {
-        this.title = title;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-    }
+    @OneToMany
+    @ToString.Exclude
+    private List<Comment> comments;
+    private String description;
+    private String imgPath;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Game game = (Game) o;
-        return Id != null && Objects.equals(Id, game.Id);
+        Review review = (Review) o;
+        return id != null && Objects.equals(id, review.id);
     }
 
     @Override

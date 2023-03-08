@@ -4,37 +4,36 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-@NoArgsConstructor()
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Game {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String title;
-    @ManyToOne()
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
-    private LocalDate releaseDate;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    public Game(String title, Genre genre, LocalDate releaseDate) {
-        this.title = title;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="user_comment",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns = { @JoinColumn(name = "comment_id") }
+    )
+    @ToString.Exclude
+    private Set<Comment> comments;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Game game = (Game) o;
-        return Id != null && Objects.equals(Id, game.Id);
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
     }
 
     @Override

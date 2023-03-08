@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 @Service
 public class GameService implements GameServiceInterface {
-    final GameRepository  repository;
+    private final  GameRepository  repository;
     public GameService(GameRepository rep)
     {
         repository=rep;

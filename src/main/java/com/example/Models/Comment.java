@@ -4,37 +4,37 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
-@NoArgsConstructor()
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Game {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String title;
-    @ManyToOne()
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
-    private LocalDate releaseDate;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    public Game(String title, Genre genre, LocalDate releaseDate) {
-        this.title = title;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
+    @ManyToMany
+    @JoinTable
+    @ToString.Exclude
+    private Set<User> user;
+
+    private  String text;
+
+    public Long getId() {
+        return id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Game game = (Game) o;
-        return Id != null && Objects.equals(Id, game.Id);
+        Comment comment = (Comment) o;
+        return id != null && Objects.equals(id, comment.id);
     }
 
     @Override

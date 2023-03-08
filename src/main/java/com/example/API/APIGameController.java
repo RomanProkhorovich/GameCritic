@@ -2,13 +2,15 @@ package com.example.API;
 
 import com.example.Models.Game;
 import com.example.Repository.GameRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping(path="/api",
+@RequestMapping(path="/api/",
         produces="application/json")
 @CrossOrigin(origins="http://localhost:8080")
 
@@ -21,8 +23,22 @@ public class APIGameController {
     }
 
     @GetMapping(params = "all")
-    public Iterable<Game> getAll(){
-        return repo.findAll();
+    public ResponseEntity<List<Game>> getAll(){
+        return ResponseEntity
+                .ok()
+                .body(repo.findAll());
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Game> getById(@PathVariable("id") Long id){
+        return  ResponseEntity.of(repo.findById(id));
+    }
+
+    @GetMapping("name={title}")
+    public ResponseEntity<Game> getById(@PathVariable("title") String title){
+        return  ResponseEntity.of(repo.findGameByTitle(title));
+    }
+
+
 }
 

@@ -2,40 +2,37 @@ package com.example.Models;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
-@NoArgsConstructor()
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private String title;
-    @ManyToOne()
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
+    @ManyToMany()
+    @Cascade({ org.hibernate.annotations.CascadeType.MERGE})
+
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    private Set<Genre> genres;
     private LocalDate releaseDate;
 
-    public Game(String title, Genre genre, LocalDate releaseDate) {
+    public Game(String title, Set<Genre> genre, LocalDate releaseDate) {
         this.title = title;
-        this.genre = genre;
+        this.genres = genre;
         this.releaseDate = releaseDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Game game = (Game) o;
-        return Id != null && Objects.equals(Id, game.Id);
-    }
 
     @Override
     public int hashCode() {

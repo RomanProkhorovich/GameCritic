@@ -2,38 +2,35 @@ package com.example.Models;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
-@Setter
-@ToString
+//@Setter
 @RequiredArgsConstructor
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
+   /* @ManyToMany()
+    @Cascade({ org.hibernate.annotations.CascadeType.MERGE})
+    private Set<Game> games;*/
+
+    public Genre(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {return name;}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Genre genre = (Genre) o;
-        return id != null && Objects.equals(id, genre.id);
-    }
 
     @Override
     public int hashCode() {

@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,21 +12,24 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor(access=AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "game_id")
     private Game game;
     private String about;
 
-    @OneToMany
+    @OneToMany()
     @ToString.Exclude
     private List<Comment> comments;
     private String description;
     private String imgPath;
+
 
 
     @Override

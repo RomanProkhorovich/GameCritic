@@ -1,9 +1,7 @@
 package com.example.Controllers;
 
-import com.example.Repository.GenreRepository;
-import com.example.Services.GameService;
-import com.example.Services.GenreService;
-import com.example.Services.GenreServiceInterface;
+import com.example.Services.Impl.GameService;
+import com.example.Services.Impl.GenreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

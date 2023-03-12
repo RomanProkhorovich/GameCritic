@@ -18,12 +18,17 @@ public class Comment {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany
-    @JoinTable
+
     @ToString.Exclude
-    private Set<User> user;
+    @ManyToOne()
+    private User user;
 
     private  String text;
+
+    public Comment(User user, String text) {
+        this.user = user;
+        this.text = text;
+    }
 
     public Long getId() {
         return id;

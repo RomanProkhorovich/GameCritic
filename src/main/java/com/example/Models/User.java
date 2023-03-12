@@ -1,32 +1,32 @@
 package com.example.Models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@Table(name="myUser")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long id;
+    private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="user_comment",
-            joinColumns = { @JoinColumn(name = "user_id")},
-            inverseJoinColumns = { @JoinColumn(name = "comment_id") }
-    )
-    @ToString.Exclude
-    private Set<Comment> comments;
+    public User(String name) {
+        this.name = name;
+    }
+
+    public User() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

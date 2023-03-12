@@ -1,13 +1,12 @@
 package com.example.Repository;
 
-import com.example.Models.Genre;
+import com.example.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
 @Repository
-public interface GenreRepository extends JpaRepository<Genre,Long> {
-        public Optional<Genre> findGenreByName(String name);
+public interface UserRepository extends JpaRepository<User,Long> {
 
+    Optional<User> findByName(String name);
 }

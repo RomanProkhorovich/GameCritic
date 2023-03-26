@@ -12,7 +12,7 @@ public interface GameServiceInterface {
 
     List<Game> findAll();
 
-    Game findAll(long id) throws GameNotFoundException;
+    Optional<Game> findById(long id);
 
     Game save(Game g);
 

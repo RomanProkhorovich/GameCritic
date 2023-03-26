@@ -15,4 +15,5 @@ public interface GenreServiceInterface {
     List<Genre> findAllGenres();
     Genre save(Genre g);
     Optional<Genre> findGenreByName(String name);
+    Optional<Genre> findGenreById(Long id);
 }

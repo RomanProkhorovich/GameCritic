@@ -1,5 +1,6 @@
 package com.example.Services.Impl;
 
+import com.example.Models.Comment;
 import com.example.Models.Game;
 import com.example.Models.Genre;
 import com.example.Models.Review;
@@ -10,10 +11,7 @@ import com.example.Services.Interface.ReviewServiceInterface;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Qualifier("ReviewServiceInterface")
@@ -37,8 +35,32 @@ public class ReviewService implements ReviewServiceInterface {
 
     @Override
     public Review save(Review r) {
+        if (r==null)
+            return null;
         var a=games.save(r.getGame());
         r.setGame(a);
         return  repo.save(r);
+    }
+
+    @Override
+    public Optional<Review> findReviewById(Long id) {
+        return repo.findById(id);
+    }
+
+    @Override
+    public void addComment(Review rev, Comment comment) {
+        addComment(rev.getId(),comment);
+    }
+
+    @Override
+    public List<Review> findAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public void addComment(Long id,Comment comment) {
+        Review rev=findReviewById(id).orElseThrow();
+        rev.addComment(comment);
+        save(rev);
     }
 }

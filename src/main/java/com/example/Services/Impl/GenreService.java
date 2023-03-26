@@ -20,6 +20,11 @@ public class GenreService implements GenreServiceInterface {
     }
 
     @Override
+    public Optional<Genre> findGenreById(Long id) {
+        return repo.findById(id);
+    }
+
+    @Override
     public List<Genre> findAllGenres() {
         return repo.findAll();
     }
@@ -28,10 +33,12 @@ public class GenreService implements GenreServiceInterface {
     }
 
     public Genre save(Genre g) {
+        if (g==null)
+            return null;
         if(repo.findGenreByName(g.getName()).isEmpty()){
             return repo.save(g);
         }
-        return g;
+      return repo.findGenreByName(g.getName()).get();
     }
 
     @Override

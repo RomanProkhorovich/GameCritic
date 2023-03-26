@@ -1,11 +1,11 @@
 package com.example.Models;
 
+import com.example.Models.User.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter

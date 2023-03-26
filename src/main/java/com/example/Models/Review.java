@@ -32,6 +32,9 @@ public class Review {
 
 
 
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

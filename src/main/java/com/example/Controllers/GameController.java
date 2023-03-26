@@ -1,6 +1,5 @@
 package com.example.Controllers;
 
-import com.example.Exceptions.GameNotFoundException;
 import com.example.Services.Impl.GameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,14 +23,10 @@ public class GameController {
     }
 
     @GetMapping("/game/{id}")
-    public String game(Model model, @PathVariable(value = "id") Long Id) {
+    public String game(Model model, @PathVariable("id") Long Id) {
 
-        try {
-            model.addAttribute("gamebyid", gm.findAll(Id));
-            return "gamebyid";
-        } catch (GameNotFoundException e) {
-            return "gamenotfound";
-        }
+        model.addAttribute("gamebyid", gm.findById(Id));
+        return "gamebyid";
     }
 
 

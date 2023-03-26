@@ -20,7 +20,7 @@ public class Genre {
     private Long id;
     private String name;
 
-   /* @ManyToMany()
+  /*  @ManyToMany()
     @Cascade({ org.hibernate.annotations.CascadeType.MERGE})
     private Set<Game> games;*/
 
